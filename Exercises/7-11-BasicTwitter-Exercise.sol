@@ -20,11 +20,6 @@ contract Twitter {
         view
         returns (string memory)
     {
-        require(
-            index + 1 <= tweets[msg.sender].length,
-            "There is content with this value."
-        );
-
         return tweets[owner][index];
     }
 
