@@ -4,7 +4,6 @@ pragma solidity ^0.8.0;
 
 // 1️⃣ Create a new Player and save it to players mapping with the given data
 
-
 contract User {
     struct Player {
         address playerAddress;
@@ -15,8 +14,18 @@ contract User {
     mapping(address => Player) public players;
 
     function createUser(address userAddress, string memory username) external {
-        require(players[userAddress].playerAddress == address(0), "User already exists");
+        require(
+            players[userAddress].playerAddress == address(0),
+            "User already exists"
+        );
 
         // Create a new player here 👇
+        Player memory newPlayer = Player({
+            playerAddress: userAddress,
+            username: username,
+            score: 0
+        });
+
+        players[userAddress] = newPlayer;
     }
 }
