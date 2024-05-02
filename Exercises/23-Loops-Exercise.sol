@@ -12,9 +12,10 @@ contract ExpenseTracker {
     struct Expense {
         address user;
         string description;
-        uint amount;
+        uint256 amount;
     }
 
+    uint256 totalExpenses;
     Expense[] public expenses;
 
     constructor() {
@@ -23,11 +24,19 @@ contract ExpenseTracker {
         expenses.push(Expense(msg.sender, "Dining out", 25));
     }
 
-    function addExpense(string memory _description, uint _amount) public {
+    function addExpense(string memory _description, uint256 _amount) public {
         expenses.push(Expense(msg.sender, _description, _amount));
     }
 
-    function getTotalExpenses(address _user) public view returns (uint) {
-        // Your code here
+    function getTotalExpenses(address _user) public view returns (uint256) {
+        uint256 total;
+
+        for (uint256 i = 0; i < expenses.length; i++) {
+            if (expenses[i].user == _user) {
+                total += expenses[i].amount;
+            }
+        }
+
+        return total;
     }
 }
