@@ -10,17 +10,19 @@ interface IUser {
 }
 
 contract Game {
-    uint public gameCount;
+    uint256 public gameCount;
     IUser public userContract;
 
     constructor(address _userContractAddress) {
         // CODE HERE
+        userContract = IUser(_userContractAddress);
     }
 
     function startGame(string memory username) external {
         // Create a user in the User contract
         gameCount++;
-    
+
         // CODE HERE
+        userContract.createUser(msg.sender, username);
     }
 }
